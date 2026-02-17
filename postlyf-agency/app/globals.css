@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+/* 1. The Font Declaration */
+@font-face {
+  font-family: 'Vastago Grotesk';
+  /* Check your public/fonts folder. If your file is .ttf or .otf, change the extension below! */
+  src: url('/fonts/VastagoGrotesk-SemiBold.otf'); 
+  /* MAGIC FIX: By setting a range (100 to 900), the browser will use this font for EVERYTHING, whether it is thin, normal, or bold. */
+  font-weight: 100 900; 
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  /* Tell Tailwind this is the master font */
+  --font-sans: 'Vastago Grotesk', sans-serif;
+  
+  --animate-shimmer: shimmer 2s linear infinite;
+  
+  @keyframes shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+}
+
+:root {
+  --background: #050505;
+  --foreground: #ffffff;
+}
+
+/* 2. THE NUCLEAR OPTION: Force it on absolutely every element */
+html, body, *, button, input, textarea, a, p, h1, h2, h3, h4, h5, h6, span {
+  font-family: 'Vastago Grotesk', sans-serif !important;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  overflow-x: hidden; 
+}
