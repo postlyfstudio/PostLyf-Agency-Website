@@ -3,7 +3,7 @@
 import { motion, useScroll, useTransform, AnimatePresence, useMotionValue, useSpring, MotionValue, useMotionTemplate } from "framer-motion";
 import { useMemo, useRef, useEffect, useState, memo } from "react";
 
-const words = ["masterpieces", "results", "innovation", "success"];
+const words = ["Growth", "Authority", "Engagement", "Scale"];
 
 const LOGOS = [
   { name: "Vignetique" },
@@ -143,6 +143,7 @@ const LiquidButton = ({ children, variant = "primary" }: { children: React.React
 
 export default function Hero({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) {
   const containerRef = useRef<HTMLElement>(null);
+  const [mounted, setMounted] = useState(false);
   const [wordIndex, setWordIndex] = useState(0);
 
   const mouseX = useMotionValue(0);
@@ -151,6 +152,7 @@ export default function Hero({ scrollYProgress }: { scrollYProgress: MotionValue
   const auraY = useSpring(mouseY, { damping: 50, stiffness: 200 });
 
   useEffect(() => {
+    setMounted(true);
     const handleMouseMove = (e: MouseEvent) => {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
@@ -229,7 +231,7 @@ export default function Hero({ scrollYProgress }: { scrollYProgress: MotionValue
         className="absolute inset-0 overflow-hidden pointer-events-none z-0"
         style={{ opacity: particleOpacity }}
       >
-        {particles.map((p) => (
+        {mounted && particles.map((p) => (
           <Particle
             key={p.id}
             p={p}
@@ -257,7 +259,7 @@ export default function Hero({ scrollYProgress }: { scrollYProgress: MotionValue
           </motion.div>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[85px] font-semibold tracking-tight text-white leading-[1.1] mb-4 w-full">
-            Turning pixels into <br className="hidden sm:inline" />
+            Turning Stories into <br className="hidden sm:inline" />
             <span className="block h-[1.2em] overflow-hidden mt-1 relative z-20">
               <AnimatePresence mode="wait">
                 <motion.span
@@ -280,8 +282,7 @@ export default function Hero({ scrollYProgress }: { scrollYProgress: MotionValue
             transition={{ delay: 1.2, duration: 1 }}
             className="font-regular max-w-xl mx-auto text-white/80 text-sm sm:text-base md:text-md leading-relaxed mb-8"
           >
-            Transform ideas into impactful digital experiences that
-            captivate your audience and fuel business growth.
+            A premium video production and digital marketing agency in Pune helping brands scale through strategy-led content.
           </motion.p>
 
           <motion.div

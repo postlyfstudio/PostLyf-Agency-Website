@@ -1,16 +1,16 @@
 "use client";
 
 import { motion, useScroll, useSpring } from "framer-motion";
-import PortfolioHero from "../../Page/PortfolioHero";
-import PortfolioShortForm from "../../Page/PortfolioShortForm";
-import PortfolioLongForm from "../../Page/PortfolioLongForm";
-import PortfolioBTS from "../../Page/PortfolioBTS";
-import Footer from "../../components/Footer";
-import CustomCursor from "../../Page/CustomCursor";
-import SmoothScroll from "../../components/SmoothScroll";
+import PortfolioHero from "../Page/PortfolioHero";
+import PortfolioShortForm from "../Page/PortfolioShortForm";
+import PortfolioLongForm from "../Page/PortfolioLongForm";
+import PortfolioBTS from "../Page/PortfolioBTS";
+import Footer from "./Footer";
+import CustomCursor from "../Page/CustomCursor";
+import SmoothScroll from "./SmoothScroll";
 import { useEffect } from "react";
 
-export default function PortfolioPage() {
+export default function PortfolioPageClient() {
     const { scrollYProgress } = useScroll();
     const scaleX = useSpring(scrollYProgress, {
         stiffness: 100,
