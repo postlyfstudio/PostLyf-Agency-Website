@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useRef } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import { ArrowUpRight, Mail, MapPin, MessageCircle } from "lucide-react";
 
@@ -57,9 +57,14 @@ const SubmitLiquidButton = () => {
 };
 
 export default function Contact() {
+  const [mounted, setMounted] = useState(false);
   const [selectedService, setSelectedService] = useState<string | null>(null);
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Magnetic Button Logic for Submit
   const x = useMotionValue(0);
@@ -107,7 +112,7 @@ export default function Contact() {
 
       {/* CONTINUOUS PARTICLES */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        {particles.map((p) => (
+        {mounted && particles.map((p) => (
           <motion.div
             key={p.id}
             className="absolute bg-white rounded-full"

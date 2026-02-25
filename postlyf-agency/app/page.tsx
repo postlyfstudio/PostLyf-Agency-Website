@@ -14,6 +14,7 @@ import Footer from "@/components/Footer";
 import { useScroll } from "framer-motion";
 import { useRef } from "react";
 
+
 export default function Home() {
 
   const container = useRef<HTMLElement>(null);

@@ -50,49 +50,55 @@ const BlogLiquidButton = () => {
     );
 };
 
-// --- SEO Optimized Mock Data ---
 const BLOG_POSTS = [
-    {
-        id: "post-1",
-        category: "AI & Engineering",
-        title: "The Future of Code Analysis: Hybrid LLM-SLM Approaches",
-        excerpt: "Exploring the architecture behind intelligent agents that seamlessly blend Large and Small Language Models for ultra-fast, local code management.",
-        date: "Feb 14, 2026",
-        isoDate: "2026-02-14",
-        readTime: "8 min read",
-        color: "#3b82f6", // Bright Blue
-        featured: true,
-    },
-    {
-        id: "post-2",
-        category: "Post-Production",
-        title: "Automating the Cut: Building Custom Tools for Local Video Trimming",
-        date: "Jan 28, 2026",
-        isoDate: "2026-01-28",
-        readTime: "5 min read",
-        color: "#10b981", // Emerald
-        featured: false,
-    },
-    {
-        id: "post-3",
-        category: "Motion Design",
-        title: "Engineering Attention: Motion Graphics for High-Impact Product Launches",
-        date: "Jan 12, 2026",
-        isoDate: "2026-01-12",
-        readTime: "6 min read",
-        color: "#a855f7", // Purple
-        featured: false,
-    },
-    {
-        id: "post-4",
-        category: "Cinematography",
-        title: "Pacing the Narrative: The Psychology Behind the 3-Second Hook",
-        date: "Dec 18, 2025",
-        isoDate: "2025-12-18",
-        readTime: "4 min read",
-        color: "#FFD700", // Gold
-        featured: false,
-    }
+  {
+    id: "video-production-company-in-pune-2026",
+    category: "Video Production",
+    title: "How a Video Production Company in Pune Drives Real Business Growth",
+    excerpt:
+      "Discover how strategic video production, cinematic storytelling, and performance-driven editing help brands increase engagement, authority, and conversions.",
+    date: "Mar 02, 2026",
+    isoDate: "2026-03-02",
+    readTime: "7 min read",
+    color: "#3b82f6",
+    featured: true,
+  },
+  {
+    id: "how-to-grow-on-youtube-2026",
+    category: "YouTube Strategy",
+    title: "How to Grow on YouTube in 2026: Editing, Retention & Algorithm Strategy",
+    excerpt:
+      "A practical guide to YouTube growth using professional video editing, audience retention tactics, and data-driven content strategy.",
+    date: "Feb 18, 2026",
+    isoDate: "2026-02-18",
+    readTime: "6 min read",
+    color: "#10b981",
+    featured: false,
+  },
+  {
+    id: "high-converting-website-design-tips",
+    category: "Web Development",
+    title: "High-Converting Website Design Tips for Modern Brands",
+    excerpt:
+      "Learn how performance-focused web development and conversion-driven design turn website traffic into measurable business results.",
+    date: "Feb 05, 2026",
+    isoDate: "2026-02-05",
+    readTime: "5 min read",
+    color: "#a855f7",
+    featured: false,
+  },
+  {
+    id: "short-form-video-marketing-strategy",
+    category: "Short Form Video",
+    title: "Short Form Video Marketing Strategy That Increases Engagement & Reach",
+    excerpt:
+      "Explore how short form video editing and social media strategy boost retention, audience growth, and brand visibility across platforms.",
+    date: "Jan 20, 2026",
+    isoDate: "2026-01-20",
+    readTime: "6 min read",
+    color: "#f97316",
+    featured: false,
+  }
 ];
 
 // --- Animation Variants ---

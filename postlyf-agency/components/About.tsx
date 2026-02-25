@@ -402,15 +402,35 @@ export default function About() {
         };
     }, []);
 
-    const p1 = "We are a professional video editing studio focused on helping creators and brands tell their stories through powerful visual content.";
-    const p2 = "From reels and YouTube video editing to corporate and promotional videos, we turn raw footage into engaging content that builds trust, grows audiences and drives real digital results.";
+    const p1 = "We are a video production agency in Pune helping creators and brands grow through cinematic content and digital strategy.";
+    const p2 = "From short form video editing and YouTube content to corporate video production and branded campaigns, we turn raw footage into engaging content that builds trust and drives measurable results.";
 
     const words1 = p1.split(" ");
     const words2 = p2.split(" ");
 
-    // Refined keywords for a premium, focused look
-    const mainWords1 = ["professional", "video", "editing", "studio", "creators", "brands"];
-    const mainWords2 = ["reels", "YouTube", "corporate", "promotional", "engaging", "results"];
+    // SEO-focused premium highlight keywords
+    const mainWords1 = [
+    "video",
+    "production",
+    "agency",
+    "Pune",
+    "creators",
+    "brands",
+    "cinematic",
+    "digital"
+    ];
+
+    const mainWords2 = [
+    "short",
+    "video",
+    "editing",
+    "YouTube",
+    "corporate",
+    "production",
+    "engaging",
+    "measurable",
+    "results"
+    ];
 
     return (
         <section

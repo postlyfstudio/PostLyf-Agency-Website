@@ -44,19 +44,19 @@ const OrangeIcon = () => (
   </svg>
 );
 
-const SERVICES = [
+const SERVICES =[
   {
     title: "Pre-Production",
     tags: ["Concept Development", "Scripting", "Location Scouting", "Video Shooting"],
-    description: "Exceptional content begins with meticulous planning. We design strategic concepts and coordinate every detail—laying the ultimate groundwork for visually striking video production.",
+    description: "Strategic planning for high-impact video production. From concept development and scripting to location scouting and professional video shooting, we build the foundation for cinematic content that performs.",
     color: "#4ade80",
     btnText: "Pre-Production services",
     Icon: GreenIcon
   },
   {
     title: "Post-Production",
-    tags: ["Video Editing", "Color Grading", "VFX", "Sound Design"],
-    description: "Transforming raw footage into captivating stories. Our post-production team uses cutting-edge techniques, dynamic motion graphics, and immersive sound design to maximize viewer retention.",
+    tags: ["Video Editing", "Color Grading", "Motion Graphics", "VFX", "Sound Design"],
+    description: "Professional video editing, color grading, motion graphics, and sound design crafted to maximize retention and engagement. We transform raw footage into polished, performance-driven content.",
     color: "#c084fc",
     btnText: "Post-Production services",
     Icon: PurpleIcon
@@ -64,7 +64,7 @@ const SERVICES = [
   {
     title: "Web Development",
     tags: ["Custom Websites", "E-Commerce", "Web Apps", "Optimization"],
-    description: "We build powerful, scalable websites that transform visitors into customers. Combining strategic design with technical excellence, every line of code is crafted for performance and security.",
+    description: "Custom web development focused on performance, scalability, and conversion. We design high-performance websites and digital platforms that turn traffic into measurable growth.",
     color: "#38bdf8",
     btnText: "Development services",
     Icon: BlueIcon
@@ -72,7 +72,7 @@ const SERVICES = [
   {
     title: "Social Marketing",
     tags: ["Strategy", "Content Creation", "Paid Ads", "Analytics"],
-    description: "Amplify your brand's voice and reach. We craft data-driven social media strategies that engage audiences, foster communities, and drive measurable growth across all major platforms.",
+    description: "Data-driven social media marketing designed to increase reach, engagement, and revenue. We combine strategy, content creation, and analytics to build sustainable digital growth systems. ",
     color: "#fb923c",
     btnText: "Marketing services",
     Icon: OrangeIcon
@@ -80,24 +80,34 @@ const SERVICES = [
 ];
 
 const StackCard = ({ index, service, progress, totalCards }: any) => {
+  // Dynamically calculate the point where this specific card starts scaling
+  const startProgress = index * (1 / totalCards);
   const targetScale = 1 - (totalCards - 1 - index) * 0.05;
-  const scale = useTransform(progress, [index * 0.25, 1], [1, targetScale]);
+  
+  const scale = useTransform(progress, [startProgress, 1], [1, targetScale]);
+  // Creates a 3D depth effect by dimming the cards as they stack backwards
+  const overlayOpacity = useTransform(progress, [startProgress, 1],[0, 0.5]);
 
   return (
     <div
-      // FIXED: Adding consistent bottom margins to EVERY card (including the last one) 
-      // creates the scroll distance required for them to securely stick and stack properly.
-      className="sticky w-full flex justify-center items-start mb-[20vh] lg:mb-[30vh]"
-      style={{ top: `calc(var(--base-top) + ${index * 20}px)` }}
+      className="sticky w-full flex justify-center items-start mb-[15vh] md:mb-[25vh]"
+      style={{ top: `calc(10vh + ${index * 25}px)` }} // Enhanced spacing increments
     >
       <motion.div
         style={{
           scale,
           transformOrigin: "top center",
         }}
-        className="relative w-full h-auto min-h-[400px] lg:min-h-[500px] rounded-[2rem] md:rounded-[3rem] p-8 md:p-14 lg:p-16 flex flex-col md:flex-row items-center gap-10 md:gap-16 border border-white/10 shadow-[0_-15px_40px_rgba(0,0,0,0.5)] overflow-hidden group"
+        className="relative w-full h-auto min-h-[400px] lg:min-h-[500px] rounded-[2rem] md:rounded-[3rem] p-8 md:p-14 lg:p-16 flex flex-col md:flex-row items-center gap-10 md:gap-16 border border-white/10 shadow-[0_-15px_40px_rgba(0,0,0,0.6)] overflow-hidden group"
       >
+        {/* Background gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#1c1c1c] to-[#0a0a0a] z-0" />
+        
+        {/* Dimming overlay for stacked effect */}
+        <motion.div 
+          style={{ opacity: overlayOpacity }}
+          className="absolute inset-0 bg-black z-20 pointer-events-none"
+        />
 
         <div className="relative z-10 flex-1 w-full flex flex-col justify-center">
           <h3 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 tracking-tight text-white">
@@ -154,19 +164,20 @@ const StackCard = ({ index, service, progress, totalCards }: any) => {
 };
 
 export default function ServicesPremium() {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const cardsContainerRef = useRef<HTMLDivElement>(null);
 
+  // Focus scroll specifically on the cards container
+  // Progress starts when the container hits the top stick offset (10vh)
   const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
+    target: cardsContainerRef,
+    offset:["start 10vh", "end end"],
   });
 
   return (
-    <section
-      ref={containerRef}
-      className="relative w-full bg-[#050505] text-white [--base-top:200px] md:[--base-top:280px] lg:[--base-top:340px]"
-    >
-      <div className="sticky top-0 z-30 pt-8 md:pt-12 lg:pt-16 pb-6 md:pb-8 bg-[#050505]">
+    <section className="relative w-full bg-[#050505] text-white overflow-clip">
+      
+      {/* HEADER: No longer sticky. Scrolling it away naturally resolves all visual collisions */}
+      <div className="relative z-30 pt-16 md:pt-24 pb-8 md:pb-16 bg-[#050505]">
         <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12">
           <header className="flex flex-col xl:flex-row xl:items-end justify-between gap-8">
             <div>
@@ -192,8 +203,11 @@ export default function ServicesPremium() {
         </div>
       </div>
 
-      {/* FIXED: Padding Bottom added so when the final card sticks, it stays in place for a comfortable margin before pushing the section up */}
-      <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 relative pb-[20vh] lg:pb-[30vh] pt-4 md:pt-8">
+      {/* CARDS CONTAINER */}
+      <div 
+        ref={cardsContainerRef}
+        className="w-full max-w-[1400px] mx-auto px-6 md:px-12 relative pt-4"
+      >
         {SERVICES.map((service, index) => (
           <StackCard
             key={service.title}
@@ -203,6 +217,12 @@ export default function ServicesPremium() {
             totalCards={SERVICES.length}
           />
         ))}
+
+        {/* SPACER (CRITICAL FIX)
+            Forces extra scrollable height at the bottom.
+            This ensures the last card stops perfectly and remains sticky for the 
+            exact same duration as the previous cards before moving to the next section. */}
+        <div className="h-[40vh] md:h-[50vh] w-full" />
       </div>
     </section>
   );

@@ -18,21 +18,20 @@ const FOOTER_LINKS = [
     {
         title: "Menu",
         links: [
-            { label: "Home", href: "/" },
-            { label: "About Us", href: "/#about" },
-            { label: "Portfolio", href: "/portfolio" },
-            { label: "Our Services", href: "/#services" },
-            { label: "Contact", href: "/#contact" },
+            { label: "Video Production Agency", href: "/#home" },
+            { label: "About PostLfy Studio", href: "/#about" },
+            { label: "Video Production Portfolio", href: "/portfolio" },
+            { label: "Digital Growth Services", href: "/#services" },
+            { label: "Contact Our Team", href: "/#contact" },
         ]
     },
     {
         title: "Services",
         links: [
-            { label: "Video Production", href: "/#services" },
-            { label: "AI Engineering", href: "/#services" },
-            { label: "Digital Branding", href: "/#services" },
-            { label: "Motion Graphics", href: "/#services" },
-            { label: "Web Experiences", href: "/#services" },
+            { label: "Pre-Production Services", href: "/#services" },
+            { label: "Post-Production & Video Editing", href: "/#services" },
+            { label: "Custom Web Development", href: "/#services" },
+            { label: "Social Media Marketing Strategy", href: "/#services" },
         ]
     },
 ];
@@ -76,8 +75,8 @@ export default function Footer() {
                             />
                         </Link>
 
-                        <p className="text-[#a0a0a0] text-base md:text-lg leading-relaxed max-w-sm mb-6">
-                            Crafting high-impact digital narratives through cinematic production and intelligent AI engineering.
+                        <p className="text-[#a0a0a0] text-base md:text-sm leading-relaxed max-w-sm mb-6">
+                            PostLfy Studio is a video production agency in Pune specializing in cinematic video production, professional video editing, web development, and social media marketing for modern brands.
                         </p>
 
                         <div className="flex gap-4 mb-8">
@@ -104,6 +103,9 @@ export default function Footer() {
                             </div>
                             hello@postlyf.com
                         </Link>
+                        <p className="text-[#666] text-sm mt-3">
+                            Based in Pune, Maharashtra — Serving Clients Worldwide
+                        </p>
                     </div>
 
                     {/* Links Grid (5 cols) */}
@@ -135,7 +137,7 @@ export default function Footer() {
                     <div className="lg:col-span-3 flex flex-col">
                         <h4 className="text-white font-semibold text-sm uppercase tracking-widest mb-6">Newsletter</h4>
                         <p className="text-[#777777] text-sm mb-5 leading-relaxed">
-                            Stay updated with our latest projects, industry insights, and creative updates.
+                            Get insights on video production, YouTube growth, website performance, and digital marketing strategy.
                         </p>
                         <form className="relative group/form">
                             <input
