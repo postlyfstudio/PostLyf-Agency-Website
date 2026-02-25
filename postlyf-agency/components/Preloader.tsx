@@ -14,13 +14,13 @@ export default function Preloader() {
         if (prev >= 100) {
           clearInterval(interval);
           // Wait a tiny bit at 100% before triggering the exit animation
-          setTimeout(() => setIsLoading(false), 400); 
+          setTimeout(() => setIsLoading(false), 400);
           return 100;
         }
         // Adjust this number to make the loader faster or slower
-        return prev + 1.5; 
+        return prev + 1.5;
       });
-    }, 30); 
+    }, 30);
   }, []);
 
   return (
@@ -33,10 +33,10 @@ export default function Preloader() {
           className="fixed inset-0 z-9999 flex flex-col items-center justify-center bg-[#050505]"
         >
           {/* Postlyf Logo Animation */}
-          <div className="relative text-5xl md:text-7xl font-black tracking-widest uppercase">
+          <div className="relative text-4xl sm:text-5xl md:text-7xl font-black tracking-widest uppercase">
             {/* The Dim Outline Layer */}
-            <span 
-              className="text-transparent" 
+            <span
+              className="text-transparent"
               style={{ WebkitTextStroke: "1px rgba(255,255,255,0.15)" }}
             >
               Postlyf

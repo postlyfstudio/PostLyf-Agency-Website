@@ -1,25 +1,79 @@
 @import "tailwindcss";
 
-/* 1. The Font Declaration */
+/* Vastago Grotesk - Light (Weight 300) */
 @font-face {
   font-family: 'Vastago Grotesk';
-  /* Check your public/fonts folder. If your file is .ttf or .otf, change the extension below! */
-  src: url('/fonts/VastagoGrotesk-SemiBold.otf'); 
-  /* MAGIC FIX: By setting a range (100 to 900), the browser will use this font for EVERYTHING, whether it is thin, normal, or bold. */
-  font-weight: 100 900; 
+  src: url('/fonts/VastagoGrotesk-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Vastago Grotesk - Regular (Weight 400) */
+@font-face {
+  font-family: 'Vastago Grotesk';
+  src: url('/fonts/VastagoGrotesk-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Vastago Grotesk';
+  src: url('/fonts/VastagoGrotesk-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Vastago Grotesk - SemiBold (Weight 600) */
+@font-face {
+  font-family: 'Vastago Grotesk';
+  src: url('/fonts/VastagoGrotesk-SemiBold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Vastago Grotesk - Bold (Weight 700) */
+@font-face {
+  font-family: 'Vastago Grotesk';
+  src: url('/fonts/VastagoGrotesk-Bold.otf') format('opentype');
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
 @theme {
-  /* Tell Tailwind this is the master font */
-  --font-sans: 'Vastago Grotesk', sans-serif;
-  
+  --font-sans: 'Vastago Grotesk', ui-sans-serif, system-ui;
+
   --animate-shimmer: shimmer 2s linear infinite;
-  
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-marquee-reverse: marquee-reverse 40s linear infinite;
+
   @keyframes shimmer {
     100% {
       transform: translateX(100%);
+    }
+  }
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(0%);
+    }
+
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes marquee-reverse {
+    0% {
+      transform: translateX(-50%);
+    }
+
+    100% {
+      transform: translateX(0%);
     }
   }
 }
@@ -29,13 +83,32 @@
   --foreground: #ffffff;
 }
 
-/* 2. THE NUCLEAR OPTION: Force it on absolutely every element */
-html, body, *, button, input, textarea, a, p, h1, h2, h3, h4, h5, h6, span {
-  font-family: 'Vastago Grotesk', sans-serif !important;
-}
-
 body {
+  font-family: var(--font-sans);
   background-color: var(--background);
   color: var(--foreground);
-  overflow-x: hidden; 
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Lenis Smooth Scrolling */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
 }
