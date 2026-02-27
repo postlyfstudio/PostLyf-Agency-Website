@@ -53,6 +53,8 @@ export default function RootLayout({
           {children}
         </SmoothScroll>
       </body>
+
+      <meta name="google-site-verification" content="SJTMkWcWW-S46aXZLaaOEVF6OWqTcgdkqnidHHBG4Bc" />
     </html>
   );
 }
