@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform, AnimatePresence, useMotionValue, useSpring, MotionValue, useMotionTemplate } from "framer-motion";
 import { useMemo, useRef, useEffect, useState, memo } from "react";
+import Link from "next/link";
 
 const words = ["Growth", "Authority", "Engagement", "Scale"];
 
@@ -87,8 +88,20 @@ const Particle = memo(({ p, mouseX, mouseY, dimensions }: {
 Particle.displayName = "Particle";
 
 // --- Internal Liquid Button Component ---
-const LiquidButton = ({ children, variant = "primary" }: { children: React.ReactNode, variant?: "primary" | "secondary" }) => {
-  const btnRef = useRef<HTMLButtonElement>(null);
+type LiquidButtonProps = {
+  children: React.ReactNode;
+  variant?: "primary" | "secondary";
+  href?: string;
+  onClick?: () => void;
+};
+
+const LiquidButton = ({
+  children,
+  variant = "primary",
+  href,
+  onClick,
+}: LiquidButtonProps) => {
+  const btnRef = useRef<HTMLButtonElement | HTMLAnchorElement>(null);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -107,36 +120,61 @@ const LiquidButton = ({ children, variant = "primary" }: { children: React.React
 
   const isPrimary = variant === "primary";
 
-  return (
-    <button
-      ref={btnRef}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      className={`
-        group relative h-[52px] min-w-[170px] px-2 inline-flex items-center justify-center text-[16px] font-medium rounded-full overflow-hidden transition-colors duration-500
-        ${isPrimary ? "bg-white text-black hover:text-white" : "bg-[#3a3a3a] text-white border border-white/10 hover:border-white/20"}
-      `}
-    >
+  const baseClasses = `
+    group relative h-[52px] min-w-[170px] px-2 inline-flex items-center justify-center text-[16px] font-medium rounded-full overflow-hidden transition-colors duration-500
+    ${isPrimary
+      ? "bg-white text-black hover:text-white"
+      : "bg-[#3a3a3a] text-white border border-white/10 hover:border-white/20"}
+  `;
+
+  const content = (
+    <>
       <span className="relative z-10">{children}</span>
+
       <motion.div
         style={{
           left: smoothX,
           top: smoothY,
           x: "-50%",
           y: "-50%",
-          willChange: "width, height",
         }}
         animate={{
           width: isHovered ? "200%" : "0%",
           height: isHovered ? "700%" : "0%",
         }}
         transition={{ duration: 1, ease: [0.23, 1, 0.32, 1] }}
-        className={`
-          absolute pointer-events-none rounded-full
-          ${isPrimary ? "bg-[#1a1a1a]" : "bg-[#1a1a1a]"}
-        `}
+        className="absolute pointer-events-none rounded-full bg-[#1a1a1a]"
       />
+    </>
+  );
+
+  // 🔥 If href exists → render Link
+  if (href) {
+    return (
+      <Link
+        href={href}
+        ref={btnRef as React.RefObject<HTMLAnchorElement>}
+        onMouseMove={handleMouseMove}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        className={baseClasses}
+      >
+        {content}
+      </Link>
+    );
+  }
+
+  // Default button
+  return (
+    <button
+      ref={btnRef as React.RefObject<HTMLButtonElement>}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onClick={onClick}
+      className={baseClasses}
+    >
+      {content}
     </button>
   );
 };
@@ -292,10 +330,12 @@ export default function Hero({ scrollYProgress }: { scrollYProgress: MotionValue
             className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full sm:w-auto"
           >
             <div className="w-full sm:w-auto">
-              <LiquidButton variant="primary">Our services</LiquidButton>
+              <LiquidButton variant="primary" href="/#services">Our services</LiquidButton>
             </div>
             <div className="w-full sm:w-auto">
-              <LiquidButton variant="secondary">Get in touch</LiquidButton>
+              <LiquidButton variant="secondary" href="/#contact">
+                Get in touch
+              </LiquidButton>
             </div>
           </motion.div>
         </div>

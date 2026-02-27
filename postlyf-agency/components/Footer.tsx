@@ -9,6 +9,7 @@ import {
     Linkedin,
     Twitter,
     Youtube,
+    Facebook,
     ChevronUp,
     Mail,
     ArrowRight
@@ -37,10 +38,10 @@ const FOOTER_LINKS = [
 ];
 
 const SOCIAL_LINKS = [
-    { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-    { icon: Instagram, href: "https://instagram.com", label: "Instagram" },
-    { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
-    { icon: Youtube, href: "https://youtube.com", label: "YouTube" },
+    { icon: Linkedin, href: "https://www.linkedin.com/company/postlyf-studio/", label: "LinkedIn" },
+    { icon: Instagram, href: "https://www.instagram.com/postlyfstudio/", label: "Instagram" },
+    { icon: Facebook, href: "https://www.facebook.com/people/Postlyf-Studio/61572633339649/", label: "Facebook" },
+    // { icon: Youtube, href: "https://youtube.com", label: "YouTube" },
 ];
 
 export default function Footer() {
@@ -95,13 +96,13 @@ export default function Footer() {
                         </div>
 
                         <Link
-                            href="mailto:hello@postlyf.com"
+                            href="mailto:social@postlyf.com"
                             className="group inline-flex items-center gap-3 text-white font-medium text-base md:text-lg transition-colors hover:text-[#888888]"
                         >
                             <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-white/10 transition-all duration-300">
                                 <Mail className="w-4 h-4" />
                             </div>
-                            hello@postlyf.com
+                            social@postlyf.com
                         </Link>
                         <p className="text-[#666] text-sm mt-3">
                             Based in Pune, Maharashtra — Serving Clients Worldwide

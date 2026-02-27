@@ -4,31 +4,31 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
 const PROCESS_STEPS = [
-    {
-        num: "01",
-        title: "Discovery & Strategy",
-        desc: "We dive deep into your brand identity, target audience, and campaign goals to develop a strategic framework that drives the creative direction."
-    },
-    {
-        num: "02",
-        title: "Pre-Production",
-        desc: "Meticulous planning ensures seamless execution. We handle moodboarding, scriptwriting, storyboarding, and talent acquisition."
-    },
-    {
-        num: "03",
-        title: "Production",
-        desc: "Using cinema-grade equipment, our lighting and camera teams capture stunning visuals that align perfectly with the established vision."
-    },
-    {
-        num: "04",
-        title: "Post-Production",
-        desc: "The magic happens in the edit. We craft the narrative pacing, apply high-end VFX, and grade the footage to achieve a distinct cinematic look."
-    },
-    {
-        num: "05",
-        title: "Sound & Delivery",
-        desc: "Immersive sound design and final mixing elevate the emotional impact. Assets are delivered formatted perfectly for every required platform."
-    }
+  {
+    num: "01",
+    title: "Strategy & Creative Direction",
+    desc: "We analyze your brand positioning, audience behavior, and campaign goals to design a performance-driven video production strategy."
+  },
+  {
+    num: "02",
+    title: "Pre-Production Planning",
+    desc: "Scriptwriting, storyboarding, and production planning ensure seamless execution and cinematic storytelling."
+  },
+  {
+    num: "03",
+    title: "Professional Video Production",
+    desc: "Using cinema-grade equipment, our team captures high-quality visuals aligned with brand objectives and commercial standards."
+  },
+  {
+    num: "04",
+    title: "Video Editing & Post-Production",
+    desc: "Professional video editing, motion graphics, color grading, and VFX integration crafted for retention and impact."
+  },
+  {
+    num: "05",
+    title: "Sound Design & Multi-Platform Delivery",
+    desc: "Final sound mixing and optimized exports for YouTube, Instagram, corporate platforms, and digital campaigns."
+  }
 ];
 
 export default function PortfolioProcess() {
@@ -39,7 +39,7 @@ export default function PortfolioProcess() {
     });
 
     return (
-        <section ref={containerRef} className="py-24 sm:py-32 bg-[#050505] px-6 sm:px-10 overflow-hidden relative">
+        <section ref={containerRef} className="py-24 sm:py-32 bg-[#191919] px-6 sm:px-10 overflow-hidden relative">
             <div className="max-w-7xl mx-auto">
                 <div className="mb-20">
                     <motion.div
@@ -49,10 +49,10 @@ export default function PortfolioProcess() {
                         transition={{ duration: 0.8 }}
                     >
                         <h2 className="text-[10px] font-medium uppercase tracking-[0.3em] text-white/50 mb-4">
-                            Workflow
+                            Video Production Process
                         </h2>
                         <h3 className="text-3xl sm:text-4xl md:text-5xl font-light tracking-tight">
-                            The <span className="font-medium italic">Process</span>
+                            Our <span className="font-medium italic">Production Workflow</span>
                         </h3>
                     </motion.div>
                 </div>
@@ -61,8 +61,8 @@ export default function PortfolioProcess() {
                     {/* Left Sticky Column */}
                     <div className="hidden lg:block col-span-4 relative">
                         <div className="sticky top-40 flex flex-col gap-8">
-                            <p className="text-white/60 text-lg font-light leading-relaxed pr-8">
-                                A systematic, transparent approach from the initial brief to the final delivery. Quality control is maintained at every single touchpoint.
+                            <p className="text-white/60 text-md font-light leading-relaxed pr-8">
+                                As a video production agency in Pune, we follow a structured, end-to-end workflow — from strategic planning and professional video shooting to high-end editing, color grading, and final delivery.
                             </p>
 
                             {/* Decorative element responding to scroll */}

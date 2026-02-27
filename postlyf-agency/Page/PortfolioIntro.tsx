@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export default function PortfolioIntro() {
     return (
-        <section className="relative bg-[#050505] py-32 sm:py-48 px-6 sm:px-10 overflow-hidden">
+        <section className="relative bg-[#111111] py-32 sm:py-48 px-6 sm:px-10 overflow-hidden">
             <div className="max-w-7xl mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-start">
 
@@ -20,7 +20,7 @@ export default function PortfolioIntro() {
                                 The Studio
                             </h2>
                             <p className="text-3xl sm:text-4xl font-light tracking-tight text-white/90 leading-snug">
-                                We are the silent force behind <span className="font-medium text-white italic">industry-leading brands & creators.</span>
+                                Professional Video Production & Editing for <span className="font-medium text-white italic">Brands and Creators.</span>
                             </p>
                         </motion.div>
 
@@ -60,10 +60,11 @@ export default function PortfolioIntro() {
                             className="text-lg sm:text-xl text-white/60 font-light leading-relaxed flex flex-col gap-6"
                         >
                             <p>
-                                PostLyf Studio isn&apos;t just another editing service. We are a cinematic production house dedicated to elevating digital presence through high-end storytelling, meticulous post-production, and strategic thinking.
+                                PostLfy Studio is a video production agency in Pune delivering cinematic storytelling, professional video editing, and corporate video production for brands and creators worldwide.
                             </p>
+
                             <p>
-                                Our approach bridges the gap between commercial aesthetics and engaging social formats. We understand that in today&apos;s saturated market, your content needs to do more than just look good—it needs to command attention, establish authority, and drive conversion.
+                                From short form video editing and YouTube content to branded campaigns and commercial films, our work is designed to build authority, increase engagement, and drive measurable digital growth.
                             </p>
                         </motion.div>
                     </div>

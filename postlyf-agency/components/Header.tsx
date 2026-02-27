@@ -8,11 +8,38 @@ import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-
 import { Menu, X } from "lucide-react";
 
 const navItems = [
-  { name: "Home", href: "/", hash: "hero" },
+  { name: "Home", href: "/#hero", hash: "hero" },
   { name: "About", href: "/#about", hash: "about" },
   { name: "Services", href: "/#services", hash: "services" },
   { name: "Portfolio", href: "/portfolio", hash: null },
 ];
+
+const smoothScrollTo = (targetY: number, duration = 1200) => {
+  const startY = window.scrollY;
+  const distance = targetY - startY;
+  let startTime: number | null = null;
+
+  const easeInOutCubic = (t: number) =>
+    t < 0.5
+      ? 4 * t * t * t
+      : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+  const animation = (currentTime: number) => {
+    if (!startTime) startTime = currentTime;
+    const timeElapsed = currentTime - startTime;
+    const progress = Math.min(timeElapsed / duration, 1);
+
+    const easedProgress = easeInOutCubic(progress);
+
+    window.scrollTo(0, startY + distance * easedProgress);
+
+    if (progress < 1) {
+      requestAnimationFrame(animation);
+    }
+  };
+
+  requestAnimationFrame(animation);
+};
 
 export default function Header() {
   const pathname = usePathname();
@@ -26,7 +53,7 @@ export default function Header() {
   // Hook into scroll events to hide/show
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious() ?? 0;
-
+    
     // 3. Hide header ONLY when scrolling DOWN and past the Hero/Work section (approx 800px)
     if (latest > 800 && latest > previous) {
       setHidden(true);
@@ -41,22 +68,30 @@ export default function Header() {
     setIsMobileMenuOpen(false);
   }, [pathname]);
 
-  const handleScroll = (
-    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
-    hash: string | null,
-    href: string
-  ) => {
-    if (!hash) return;
-    if (pathname === "/") {
-      e.preventDefault();
+const handleScroll = async (
+  e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+  hash: string | null,
+  href: string
+) => {
+  if (!hash) return;
+
+  e.preventDefault();
+
+  if (pathname !== "/") {
+    await router.push("/");
+    setTimeout(() => {
       const element = document.getElementById(hash);
       if (element) {
         element.scrollIntoView({ behavior: "smooth", block: "start" });
-      } else if (hash === "hero") {
-        window.scrollTo({ top: 0, behavior: "smooth" });
       }
+    }, 100);
+  } else {
+    const element = document.getElementById(hash);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
-  };
+  }
+};
 
   return (
     <>
@@ -176,7 +211,7 @@ export default function Header() {
                     setIsMobileMenuOpen(false);
                   }}
                   className="inline-flex items-center justify-center w-full py-4 text-lg font-medium text-black bg-white rounded-xl shadow-lg shadow-white/10"
-                >
+                > 
                   Get Quote
                 </Link>
               </motion.div>

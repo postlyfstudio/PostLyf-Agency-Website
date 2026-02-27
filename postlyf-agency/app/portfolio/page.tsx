@@ -2,12 +2,19 @@
 
 import { motion, useScroll, useSpring } from "framer-motion";
 import PortfolioHero from "../../Page/PortfolioHero";
+import PortfolioIntro from "../../Page/PortfolioIntro";
+import PortfolioFeatured from "../../Page/PortfolioFeatured";
+import PortfolioFilterable from "../../Page/PortfolioFilterable";
 import PortfolioShortForm from "../../Page/PortfolioShortForm";
-import PortfolioLongForm from "../../Page/PortfolioLongForm";
-import PortfolioBTS from "../../Page/PortfolioBTS";
+import PortfolioProcess from "../../Page/PortfolioProcess";
+import PortfolioMetrics from "../../Page/PortfolioMetrics";
+import PortfolioCTA from "../../Page/PortfolioCTA";
+import PortfolioContact from "../../Page/PortfolioContact";
 import Footer from "../../components/Footer";
 import CustomCursor from "../../Page/CustomCursor";
 import SmoothScroll from "../../components/SmoothScroll";
+import PrimaryCTA from "@/components/PrimaryCTA";
+import Contact from "@/components/Contact";
 import { useEffect } from "react";
 
 export default function PortfolioPage() {
@@ -26,20 +33,19 @@ export default function PortfolioPage() {
                 <motion.div
                     className="fixed top-0 left-0 right-0 h-1 bg-white origin-left z-[60]"
                     style={{ scaleX }}
-                />
+                />  
 
-                {/* Hero Section */}
                 <PortfolioHero />
-
-                {/* Short Form Videos Section */}
+                <PortfolioIntro />
+                {/* <PortfolioFeatured /> */}
                 <PortfolioShortForm />
-
-                {/* Long Form Videos Section */}
-                <PortfolioLongForm />
-
-                {/* BTS / Shooting Section */}
-                <PortfolioBTS />
-
+                <PortfolioFilterable />
+                <PortfolioProcess />
+                <PortfolioMetrics />
+                <PrimaryCTA />
+                <Contact />
+                {/* <PortfolioCTA />
+                <PortfolioContact /> */}
                 <Footer />
             </main>
         </SmoothScroll>

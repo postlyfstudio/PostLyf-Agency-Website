@@ -55,7 +55,7 @@ const SERVICES =[
   },
   {
     title: "Post-Production",
-    tags: ["Video Editing", "Color Grading", "Motion Graphics", "VFX", "Sound Design"],
+    tags: ["Video Editing", "Color Grading", "Motion Graphics", "Sound Design"],
     description: "Professional video editing, color grading, motion graphics, and sound design crafted to maximize retention and engagement. We transform raw footage into polished, performance-driven content.",
     color: "#c084fc",
     btnText: "Post-Production services",
@@ -174,7 +174,7 @@ export default function ServicesPremium() {
   });
 
   return (
-    <section className="relative w-full bg-[#050505] text-white overflow-clip">
+    <section id="services" className="relative w-full bg-[#050505] text-white overflow-clip">
       
       {/* HEADER: No longer sticky. Scrolling it away naturally resolves all visual collisions */}
       <div className="relative z-30 pt-16 md:pt-24 pb-8 md:pb-16 bg-[#050505]">

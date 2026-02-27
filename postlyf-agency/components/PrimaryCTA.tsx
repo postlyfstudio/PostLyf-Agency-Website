@@ -175,7 +175,7 @@ export default function PrimaryCTA() {
                             Click to connect
                         </motion.div>
                     </motion.div>
-                </motion.div>
+                </motion.div>   
 
             </div>
         </section>

@@ -16,7 +16,7 @@ export default function PortfolioHero() {
     const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
     const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
 
-    const titleWords = "CRAFTING CINEMATIC EXPERIENCES".split(" ");
+    const titleWords = "VIDEO PRODUCTION SHOWCASE".split(" ");
 
     return (
         <section
@@ -45,7 +45,7 @@ export default function PortfolioHero() {
                 >
                     <span className="w-1.5 h-1.5 rounded-full bg-white/80 animate-pulse" />
                     <span className="text-[10px] sm:text-xs font-medium text-white/80 uppercase tracking-[0.2em]">
-                        Selected Works Archive
+                        Video Production Portfolio
                     </span>
                 </motion.div>
 
@@ -74,7 +74,7 @@ export default function PortfolioHero() {
                     transition={{ delay: 0.8, duration: 1, ease: [0.16, 1, 0.3, 1] }}
                     className="text-white/50 text-sm sm:text-base lg:text-lg max-w-2xl mx-auto tracking-wide font-light mb-12"
                 >
-                    We elevate brands through high-end production, strategic storytelling, and meticulous post-production.
+                    We are a video production agency in Pune delivering cinematic storytelling, professional video editing, and corporate film production for brands and creators worldwide.
                 </motion.p>
 
                 <motion.div
@@ -84,15 +84,30 @@ export default function PortfolioHero() {
                     className="flex flex-col sm:flex-row items-center gap-6"
                 >
                     <MagneticButton>
-                        <span className="px-8 py-4 block font-medium">View Showreel</span>
+                        <span className="flex items-center gap-3 px-8 py-4 font-medium uppercase tracking-widest text-sm">
+                            Start a Project
+                            <svg
+                            className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M14 5l7 7m0 0l-7 7m7-7H3"
+                            />
+                            </svg>
+                        </span>
                     </MagneticButton>
 
-                    <Link href="#contact" className="group flex items-center gap-2 text-sm font-medium uppercase tracking-widest text-white/70 hover:text-white transition-colors duration-300">
+                    {/* <Link href="#contact" className="group flex items-center gap-2 text-sm font-medium uppercase tracking-widest text-white/70 hover:text-white transition-colors duration-300">
                         Start a Project
                         <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                         </svg>
-                    </Link>
+                    </Link> */}
                 </motion.div>
             </div>
 
@@ -103,9 +118,9 @@ export default function PortfolioHero() {
                 transition={{ delay: 1.5, duration: 1 }}
                 className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-6"
             >
-                <span className="text-[10px] uppercase tracking-[0.3em] text-white/30">
+                {/* <span className="text-[10px] uppercase tracking-[0.3em] text-white/30">
                     Scroll
-                </span>
+                </span> */}
                 <div className="w-[1px] h-16 bg-white/10 relative overflow-hidden">
                     <motion.div
                         animate={{ y: ["-100%", "100%"] }}

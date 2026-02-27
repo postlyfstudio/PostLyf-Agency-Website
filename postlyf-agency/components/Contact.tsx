@@ -1,16 +1,18 @@
 "use client";
 
 import { useState, useMemo, useRef, useEffect } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
-import { ArrowUpRight, Mail, MapPin, MessageCircle } from "lucide-react";
+import { motion, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
+import { ArrowUpRight, Mail, MapPin, MessageCircle, Loader2, CheckCircle2 } from "lucide-react";
 
+// 1. Added Social Marketing
 const SERVICES = [
+  "Video Production",
   "Video Editing",
-  "Video Shooting",
   "Web Development",
+  "Social Media Marketing"
 ];
 
-const SubmitLiquidButton = () => {
+const SubmitLiquidButton = ({ isSubmitting }: { isSubmitting: boolean }) => {
   const btnRef = useRef<HTMLButtonElement>(null);
   const fillMouseX = useMotionValue(0);
   const fillMouseY = useMotionValue(0);
@@ -31,21 +33,25 @@ const SubmitLiquidButton = () => {
   return (
     <button
       type="submit"
+      disabled={isSubmitting}
       ref={btnRef}
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      // YOUR EXACT STYLING
-      className="group relative z-10 inline-flex items-center gap-2 px-4 py-3 bg-white text-black hover:text-white border border-white/10 hover:scale-105  transition-all duration-500 rounded-full overflow-hidden duration-500]"
+      className="group relative z-10 inline-flex items-center gap-2 px-4 py-3 bg-white text-black hover:text-white border border-white/10 hover:scale-105 transition-all duration-500 rounded-full overflow-hidden disabled:opacity-70 disabled:hover:scale-100 disabled:cursor-not-allowed"
     >
-      <span className="relative z-10 font-bold text-sm tracking-widest uppercase">Send Message</span>
+      <span className="relative z-10 font-bold text-sm tracking-widest uppercase">
+        {isSubmitting ? "Sending..." : "Request Proposal"}
+      </span>
 
-      {/* Exact Icon Container */}
       <div className="relative z-10 w-10 h-10 rounded-2xl bg-black flex items-center justify-center group-hover:bg-white transition-all duration-500">
-        <ArrowUpRight className="w-5 h-5 text-white group-hover:text-black transition-all duration-500" />
+        {isSubmitting ? (
+          <Loader2 className="w-5 h-5 text-white group-hover:text-black animate-spin" />
+        ) : (
+          <ArrowUpRight className="w-5 h-5 text-white group-hover:text-black transition-all duration-500" />
+        )}
       </div>
 
-      {/* THE LIQUID FILL EFFECT */}
       <motion.div
         style={{ left: smoothX, top: smoothY, x: "-50%", y: "-50%" }}
         animate={{ width: isHovered ? "200%" : "0%", height: isHovered ? "700%" : "0%" }}
@@ -58,34 +64,68 @@ const SubmitLiquidButton = () => {
 
 export default function Contact() {
   const [mounted, setMounted] = useState(false);
-  const [selectedService, setSelectedService] = useState<string | null>(null);
+
+  // 2. State is now an Array to hold multiple selections
+  const [selectedServices, setSelectedServices] = useState<string[]>([]);
   const [focusedField, setFocusedField] = useState<string | null>(null);
-  const formRef = useRef<HTMLFormElement>(null);
+
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // Magnetic Button Logic for Submit
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const mouseX = useSpring(x, { stiffness: 150, damping: 15, mass: 0.1 });
-  const mouseY = useSpring(y, { stiffness: 150, damping: 15, mass: 0.1 });
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    x.set((e.clientX - centerX) * 0.35);
-    y.set((e.clientY - centerY) * 0.35);
+  // 3. Toggle Logic: Add if not present, Remove if already present
+  const toggleService = (service: string) => {
+    setSelectedServices((prev) =>
+      prev.includes(service)
+        ? prev.filter((s) => s !== service)
+        : [...prev, service]
+    );
   };
 
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus('submitting');
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          // Pulls securely from your .env.local file
+          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY,
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          services_requested: selectedServices.length > 0 ? selectedServices.join(", ") : "None selected",
+          subject: `New Inquiry from ${formData.name} - PostLyf Website`,
+        }),
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        setStatus('success');
+        setFormData({ name: "", email: "", message: "" });
+        setSelectedServices([]); // Clear the selections on success
+
+        setTimeout(() => setStatus('idle'), 5000);
+      } else {
+        setStatus('error');
+      }
+    } catch (error) {
+      setStatus('error');
+    }
   };
 
-  // CONTINUOUS PARTICLES logic from Hero.tsx
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+
   const particles = useMemo(() => {
     return Array.from({ length: 60 }).map((_, i) => ({
       id: i,
@@ -103,47 +143,27 @@ export default function Contact() {
   return (
     <section id="contact" className="relative z-10 bg-[#050505] min-h-screen py-24 md:py-32 overflow-hidden border-t border-white/5">
 
-      {/* 1. Cinematic Grain Overlay (consistency with PrimaryCTA) */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')] z-20" />
-
-      {/* 2. Hero-style Background Elements */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-white opacity-[0.03] blur-[100px] pointer-events-none z-0" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[120px] pointer-events-none z-0" />
 
-      {/* CONTINUOUS PARTICLES */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
         {mounted && particles.map((p) => (
           <motion.div
             key={p.id}
             className="absolute bg-white rounded-full"
-            style={{
-              width: p.size,
-              height: p.size,
-              left: `${p.initialX}%`,
-              top: `${p.initialY}%`,
-            }}
-            animate={{
-              x: [0, p.moveX, 0],
-              y: [0, p.moveY, 0],
-              opacity: [0, 0.8, 0],
-            }}
-            transition={{
-              duration: p.duration,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: p.delay,
-            }}
+            style={{ width: p.size, height: p.size, left: `${p.initialX}%`, top: `${p.initialY}%` }}
+            animate={{ x: [0, p.moveX, 0], y: [0, p.moveY, 0], opacity: [0, 0.8, 0] }}
+            transition={{ duration: p.duration, repeat: Infinity, ease: "easeInOut", delay: p.delay }}
           />
         ))}
       </div>
 
       <div className="container mx-auto px-6 md:px-12 max-w-[1400px] relative z-10">
-
         <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
 
-          {/* === LEFT COLUMN: Info & Direct Contact === */}
+          {/* LEFT COLUMN */}
           <div className="w-full lg:w-5/12 flex flex-col gap-12">
-
             <div className="max-w-md">
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
@@ -175,7 +195,6 @@ export default function Contact() {
               </motion.p>
             </div>
 
-            {/* Direct Contact Pills */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -183,15 +202,14 @@ export default function Contact() {
               transition={{ delay: 0.2 }}
               className="flex flex-col gap-4 md:gap-5"
             >
-              {/* Email Pill */}
-              <a href="mailto:hello@postlyf.com" className="group flex items-center justify-between p-4 md:p-5 md:pr-8 rounded-2xl md:rounded-3xl bg-[#111111]/40 border border-white/5 hover:bg-[#161616]/60 hover:border-white/20 transition-all duration-500 backdrop-blur-sm">
+              <a href="mailto:social@postlyf.com?subject=Project%20Inquiry%20-%20PostLyf" className="group flex items-center justify-between p-4 md:p-5 md:pr-8 rounded-2xl md:rounded-3xl bg-[#111111]/40 border border-white/5 hover:bg-[#161616]/60 hover:border-white/20 transition-all duration-500 backdrop-blur-sm">
                 <div className="flex items-center gap-4 md:gap-5">
                   <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-white/5 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all duration-500 text-white">
                     <Mail className="w-5 h-5 md:w-6 md:h-6" />
                   </div>
                   <div className="flex flex-col">
                     <span className="text-[9px] md:text-[10px] uppercase tracking-[0.2em] text-[#666666] font-bold">Email Interface</span>
-                    <span className="text-white font-medium text-base md:text-lg">hello@postlyf.com</span>
+                    <span className="text-white font-medium text-base md:text-lg">social@postlyf.com</span>
                   </div>
                 </div>
                 <div className="w-8 h-8 md:w-10 md:h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all duration-500">
@@ -199,10 +217,8 @@ export default function Contact() {
                 </div>
               </a>
 
-              {/* WhatsApp Pill */}
-              <a href="https://wa.me/YOUR_PHONE_NUMBER" target="_blank" rel="noopener noreferrer" className="group flex items-center justify-between p-4 md:p-5 md:pr-8 rounded-2xl md:rounded-3xl bg-[#111111]/40 border border-white/5 hover:bg-[#161616]/60 hover:border-[#25D366]/30 transition-all duration-500 overflow-hidden relative backdrop-blur-sm">
+              <a href="https://wa.me/9226719090" target="_blank" rel="noopener noreferrer" className="group flex items-center justify-between p-4 md:p-5 md:pr-8 rounded-2xl md:rounded-3xl bg-[#111111]/40 border border-white/5 hover:bg-[#161616]/60 hover:border-[#25D366]/30 transition-all duration-500 overflow-hidden relative backdrop-blur-sm">
                 <div className="absolute inset-0 bg-gradient-to-r from-[#25D366]/0 to-[#25D366]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
                 <div className="flex items-center gap-4 md:gap-5 relative z-10">
                   <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-white/5 flex items-center justify-center group-hover:bg-[#25D366] transition-all duration-500 text-white">
                     <MessageCircle className="w-5 h-5 md:w-6 md:h-6" />
@@ -217,10 +233,9 @@ export default function Contact() {
                 </div>
               </a>
             </motion.div>
-
           </div>
 
-          {/* === RIGHT COLUMN: Interactive Form === */}
+          {/* RIGHT COLUMN: Interactive Form */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -229,39 +244,43 @@ export default function Contact() {
             className="w-full lg:w-7/12"
           >
             <form
-              ref={formRef}
+              onSubmit={handleSubmit}
               className="bg-[#111111]/30 border border-white/5 rounded-[2rem] md:rounded-[3rem] p-8 md:p-16 backdrop-blur-2xl flex flex-col gap-10 md:gap-12 relative overflow-hidden"
             >
               <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 blur-[80px] rounded-full -mr-32 -mt-32 pointer-events-none" />
 
-              {/* Service Selection */}
               <div>
-                <label className="text-[11px] uppercase tracking-[0.3em] text-[#555555] font-bold mb-6 block">
-                  Identify your needs
+                <label className="text-[11px] uppercase tracking-[0.3em] text-[#555555] font-bold mb-5 block">
+                  Services Required
                 </label>
-                <div className="flex flex-wrap gap-3">
-                  {SERVICES.map((service) => (
-                    <button
-                      key={service}
-                      type="button"
-                      onClick={() => setSelectedService(service === selectedService ? null : service)}
-                      className={`px-6 py-3 rounded-2xl text-sm font-medium transition-all duration-500 border ${selectedService === service
-                        ? "bg-white text-black border-white shadow-[0_10px_30px_rgba(255,255,255,0.1)]"
-                        : "bg-white/5 text-[#888888] border-white/5 hover:border-white/20 hover:text-white"
-                        }`}
-                    >
-                      {service}
-                    </button>
-                  ))}
+                <div className="flex flex-wrap gap-2 md:gap-3">
+                  {SERVICES.map((service) => {
+                    const isSelected = selectedServices.includes(service);
+                    return (
+                      <button
+                        key={service}
+                        type="button"
+                        onClick={() => toggleService(service)}
+                        // 5. Sleeker, smaller, premium pills
+                        className={`px-4 py-2 rounded-full text-xs font-medium tracking-wide transition-all duration-300 border ${isSelected
+                            ? "bg-white text-black border-white shadow-[0_0_15px_rgba(255,255,255,0.15)]"
+                            : "bg-white/5 text-white/50 border-white/5 hover:bg-white/10 hover:text-white"
+                          }`}
+                      >
+                        {service}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
 
-              {/* Minimal Input Fields */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                 <div className="relative group">
                   <input
                     type="text"
                     id="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
                     required
                     onFocus={() => setFocusedField('name')}
                     onBlur={() => setFocusedField(null)}
@@ -270,8 +289,8 @@ export default function Contact() {
                   />
                   <label
                     htmlFor="name"
-                    className={`absolute left-0 transition-all duration-500 pointer-events-none font-medium ${focusedField === 'name' ? '-top-6 text-[#555555] text-[10px] uppercase tracking-[0.2em]' : 'top-4 text-[#444444] text-lg'
-                      } peer-valid:-top-6 peer-valid:text-[#555555] peer-valid:text-[10px] peer-valid:uppercase peer-valid:tracking-[0.2em] px-0`}
+                    className={`absolute left-0 transition-all duration-500 pointer-events-none font-medium ${focusedField === 'name' || formData.name ? '-top-6 text-[#555555] text-[10px] uppercase tracking-[0.2em]' : 'top-4 text-[#444444] text-lg'
+                      } px-0`}
                   >
                     Your Name
                   </label>
@@ -281,6 +300,8 @@ export default function Contact() {
                   <input
                     type="email"
                     id="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
                     required
                     onFocus={() => setFocusedField('email')}
                     onBlur={() => setFocusedField(null)}
@@ -289,8 +310,8 @@ export default function Contact() {
                   />
                   <label
                     htmlFor="email"
-                    className={`absolute left-0 transition-all duration-500 pointer-events-none font-medium ${focusedField === 'email' ? '-top-6 text-[#555555] text-[10px] uppercase tracking-[0.2em]' : 'top-4 text-[#444444] text-lg'
-                      } peer-valid:-top-6 peer-valid:text-[#555555] peer-valid:text-[10px] peer-valid:uppercase peer-valid:tracking-[0.2em] px-0`}
+                    className={`absolute left-0 transition-all duration-500 pointer-events-none font-medium ${focusedField === 'email' || formData.email ? '-top-6 text-[#555555] text-[10px] uppercase tracking-[0.2em]' : 'top-4 text-[#444444] text-lg'
+                      } px-0`}
                   >
                     Email Address
                   </label>
@@ -300,6 +321,8 @@ export default function Contact() {
               <div className="relative group">
                 <textarea
                   id="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
                   required
                   rows={4}
                   onFocus={() => setFocusedField('message')}
@@ -309,16 +332,40 @@ export default function Contact() {
                 />
                 <label
                   htmlFor="message"
-                  className={`absolute left-0 transition-all duration-500 pointer-events-none font-medium ${focusedField === 'message' ? '-top-6 text-[#555555] text-[10px] uppercase tracking-[0.2em]' : 'top-4 text-[#444444] text-lg'
-                    } peer-valid:-top-6 peer-valid:text-[#555555] peer-valid:text-[10px] peer-valid:uppercase peer-valid:tracking-[0.2em] px-0`}
+                  className={`absolute left-0 transition-all duration-500 pointer-events-none font-medium ${focusedField === 'message' || formData.message ? '-top-6 text-[#555555] text-[10px] uppercase tracking-[0.2em]' : 'top-4 text-[#444444] text-lg'
+                    } px-0`}
                 >
                   Project Brief
                 </label>
               </div>
 
-              {/* Enhanced Magnetic Submit Button */}
-              <div className="flex justify-end mt-4">
-                <SubmitLiquidButton />
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-6 mt-4">
+                <AnimatePresence>
+                  {status === 'success' && (
+                    <motion.div
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0 }}
+                      className="flex items-center gap-2 text-emerald-400 text-sm font-medium"
+                    >
+                      <CheckCircle2 className="w-4 h-4" /> Message sent successfully.
+                    </motion.div>
+                  )}
+                  {status === 'error' && (
+                    <motion.div
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0 }}
+                      className="text-red-400 text-sm font-medium"
+                    >
+                      Something went wrong. Please try again.
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                <div className="ml-auto">
+                  <SubmitLiquidButton isSubmitting={status === 'submitting'} />
+                </div>
               </div>
 
             </form>
