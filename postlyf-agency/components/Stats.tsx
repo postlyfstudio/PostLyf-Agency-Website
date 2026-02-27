@@ -4,6 +4,7 @@ import { useRef, useEffect, useState } from "react";
 import { motion, useInView,useMotionValue, useScroll, useSpring, useTransform, animate } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 
 // --- Custom Animated Number (Preserved for the smooth tick-up) ---
 interface AnimatedNumberProps {
@@ -13,27 +14,40 @@ interface AnimatedNumberProps {
   duration?: number;
 }
 
-const AnimatedNumber = ({ value, prefix = "", suffix = "", duration = 2.5 }: AnimatedNumberProps) => {
+const AnimatedNumber = ({
+  value,
+  prefix = "",
+  suffix = "",
+  duration = 2.5,
+}: AnimatedNumberProps) => {
   const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [displayValue, setDisplayValue] = useState("0");
+  const isInView = useInView(ref, { once: true, amount: 0.4 });
+
+  const motionValue = useMotionValue(0);
+  const springValue = useSpring(motionValue, {
+    damping: 30,
+    stiffness: 100,
+  });
+
+  const [display, setDisplay] = useState(0);
 
   useEffect(() => {
     if (isInView) {
-      const controls = animate(0, value, {
-        duration: duration,
-        ease: [0.16, 1, 0.3, 1], // Cinematic ease-out
-        onUpdate(v) {
-          setDisplayValue(Math.round(v).toLocaleString());
-        },
-      });
-      return () => controls.stop();
+      motionValue.set(value);
     }
-  }, [isInView, value, duration]);
+  }, [isInView, value, motionValue]);
+
+  useEffect(() => {
+    return springValue.on("change", (latest) => {
+      setDisplay(Math.round(latest));
+    });
+  }, [springValue]);
 
   return (
     <span ref={ref} className="tabular-nums">
-      {prefix}{displayValue}{suffix}
+      {prefix}
+      {display.toLocaleString()}
+      {suffix}
     </span>
   );
 };
@@ -42,6 +56,9 @@ const StatsLiquidButton = () => {
   const btnRef = useRef<HTMLAnchorElement>(null);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
+
+  const pathname = usePathname();
+  const router = useRouter();
 
   const springConfig = { damping: 25, stiffness: 200, mass: 0.6 };
   const smoothX = useSpring(mouseX, springConfig);
@@ -56,37 +73,52 @@ const StatsLiquidButton = () => {
     mouseY.set(e.clientY - rect.top);
   };
 
+  const handleClick = async (e: React.MouseEvent) => {
+    e.preventDefault();
+
+    if (pathname !== "/") {
+      await router.push("/");
+      setTimeout(() => {
+        const element = document.getElementById("contact");
+        element?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 100);
+    } else {
+      const element = document.getElementById("contact");
+      element?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   return (
-    <Link
+    <a
       href="/#contact"
       ref={btnRef}
+      onClick={handleClick}
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      // YOUR EXACT ORIGINAL STYLING
       className="group relative inline-flex items-center justify-center px-8 py-4 text-sm font-semibold text-white bg-transparent border border-white hover:scale-105 rounded-full overflow-hidden transition-all duration-300 hover:border-transparent shrink-0"
     >
       <span className="relative z-10 flex items-center gap-2 group-hover:text-black transition-colors duration-300">
-        Get Your Quote <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
+        Get Your Quote
+        <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
       </span>
-      
-      {/* THE LIQUID FILL EFFECT */}
+
       <motion.div
         style={{ left: smoothX, top: smoothY, x: "-50%", y: "-50%" }}
         animate={{ width: isHovered ? "200%" : "0%", height: isHovered ? "700%" : "0%" }}
         transition={{ duration: 1.5, ease: [0.23, 1, 0.32, 1] }}
         className="absolute pointer-events-none rounded-full bg-white z-0"
       />
-    </Link>
+    </a>
   );
 };
 
 // --- The Custom Postlyf Data Set ---
 const STATS_DATA = [
-  { id: "01", value: 120, suffix: "+", label: "Projects Delivered", color: "#0052cc" }, // Blue
-  { id: "02", value: 85, suffix: "+", label: "Happy Clients", color: "#10b981" }, // Emerald
-  { id: "03", value: 500, suffix: "M+", label: "Organic Views", color: "#FFD700" }, // Gold
-  { id: "04", value: 5, suffix: "+", label: "Years Experience", color: "#a855f7" }, // Purple
+  { id: "01", value: 1000, suffix: "+", label: "Projects Delivered", color: "#0052cc" }, // Blue
+  { id: "02", value: 120, suffix: "+", label: "Happy Clients", color: "#10b981" }, // Emerald
+  { id: "03", value: 100, suffix: "M+", label: "Organic Views", color: "#FFD700" }, // Gold
+  { id: "04", value: 3, suffix: "+", label: "Years Experience", color: "#a855f7" }, // Purple
 ];
 
 export default function Stats() {

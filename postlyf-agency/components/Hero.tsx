@@ -7,12 +7,15 @@ import Link from "next/link";
 const words = ["Growth", "Authority", "Engagement", "Scale"];
 
 const LOGOS = [
-  { name: "Vignetique" },
-  { name: "Kooki" },
-  { name: "Optimo" },
-  { name: "RecruiterOne" },
-  { name: "Soleil" },
-  { name: "Skoolvers" },
+  { name: "Mahindra" },
+  { name: "KASHISH" },
+  { name: "PROPERTY SEARCH" },
+  { name: "LawTech" },
+  { name: "INDUSTRY MAGNATES" },
+  { name: "Director's Institute" },
+  { name: "GENOME" },
+  { name: "DI DATABANK" },
+  { name: "WDC" },
 ];
 
 // --- Internal Particle Component (Memoized for performance) ---

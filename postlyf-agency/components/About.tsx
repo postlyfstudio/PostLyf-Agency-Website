@@ -3,6 +3,7 @@
 import { useRef, useEffect, useState } from "react";
 import { motion, useMotionValue, useScroll, useTransform, useSpring } from "framer-motion";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 
 const SimplexNoise = function () {
     const F3 = 1 / 3, G3 = 1 / 6;
@@ -134,10 +135,23 @@ const Word = ({ children, progress, range, isHighlighted }: any) => {
     );
 };
 
-const AboutLiquidButton = ({ href, children, className, liquidColor }: { href: string, children: React.ReactNode, className: string, liquidColor: string }) => {
+const AboutLiquidButton = ({
+    href,
+    children,
+    className,
+    liquidColor,
+}: {
+    href: string;
+    children: React.ReactNode;
+    className: string;
+    liquidColor: string;
+}) => {
     const btnRef = useRef<HTMLAnchorElement>(null);
     const mouseX = useMotionValue(0);
     const mouseY = useMotionValue(0);
+
+    const pathname = usePathname();
+    const router = useRouter();
 
     const springConfig = { damping: 30, stiffness: 150, mass: 0.8 };
     const smoothX = useSpring(mouseX, springConfig);
@@ -152,28 +166,48 @@ const AboutLiquidButton = ({ href, children, className, liquidColor }: { href: s
         mouseY.set(e.clientY - rect.top);
     };
 
+    const handleClick = async (e: React.MouseEvent) => {
+        if (!href.includes("#")) return;
+
+        e.preventDefault();
+
+        const [path, hash] = href.split("#");
+
+        // If link is to a different page
+        if (path && path !== pathname) {
+            await router.push(href);
+            return;
+        }
+
+        // If same page hash
+        const el = document.getElementById(hash);
+        el?.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+
     return (
-        <Link
+        <a
             href={href}
             ref={btnRef}
+            onClick={handleClick}
             onMouseMove={handleMouseMove}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            // Added group, relative, and overflow-hidden to contain the liquid inside your rounded-[10px] borders
-            className={`group relative inline-flex items-center justify-center overflow-hidden transition-colors duration-300  ${className}`}
+            className={`group relative inline-flex items-center justify-center overflow-hidden transition-colors duration-300 ${className}`}
         >
             <span className="relative z-10 transition-colors duration-300">
                 {children}
             </span>
 
-            {/* THE LIQUID FILL EFFECT */}
             <motion.div
                 style={{ left: smoothX, top: smoothY, x: "-50%", y: "-50%" }}
-                animate={{ width: isHovered ? "200%" : "0%", height: isHovered ? "700%" : "0%" }}
+                animate={{
+                    width: isHovered ? "200%" : "0%",
+                    height: isHovered ? "700%" : "0%",
+                }}
                 transition={{ duration: 1.5, ease: [0.23, 1, 0.32, 1] }}
                 className={`absolute pointer-events-none rounded-full z-0 ${liquidColor}`}
             />
-        </Link>
+        </a>
     );
 };
 
@@ -410,32 +444,32 @@ export default function About() {
 
     // SEO-focused premium highlight keywords
     const mainWords1 = [
-    "video",
-    "production",
-    "agency",
-    "Pune",
-    "creators",
-    "brands",
-    "cinematic",
-    "digital"
+        "video",
+        "production",
+        "agency",
+        "Pune",
+        "creators",
+        "brands",
+        "cinematic",
+        "digital"
     ];
 
     const mainWords2 = [
-    "short",
-    "video",
-    "editing",
-    "YouTube",
-    "corporate",
-    "production",
-    "engaging",
-    "measurable",
-    "results"
+        "short",
+        "video",
+        "editing",
+        "YouTube",
+        "corporate",
+        "production",
+        "engaging",
+        "measurable",
+        "results"
     ];
 
     return (
         <section
             id="about"
-            ref={containerRef}  
+            ref={containerRef}
             className="relative flex flex-col justify-center min-h-[100vh] overflow-hidden border-t border-white/5 bg-[#191919] py-20 px-6 sm:px-[8vw]"
         >
             <canvas ref={canvasRef} className="absolute inset-0 w-full h-full z-0 pointer-events-none" />
@@ -495,7 +529,7 @@ export default function About() {
 
                     {/* Secondary "More about us" Button */}
                     <AboutLiquidButton
-                        href="/#work"
+                        href="/portfolio/#porthero"
                         className="px-6 md:px-7 py-3 md:py-3.5 bg-[#333] text-white rounded-[10px] text-sm md:text-base font-medium border border-white hover:scale-105 transition-all duration-500"
                         liquidColor="bg-[#1a1a1a]"
                     >

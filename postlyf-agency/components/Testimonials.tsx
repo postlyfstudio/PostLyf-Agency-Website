@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import { ArrowRight, Star } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 // --- Enhanced, Impactful Testimonial Data ---
 const REVIEWS = [
@@ -64,7 +65,7 @@ const StoriesLiquidButton = () => {
 
   return (
     <Link
-      href="/#contact"
+      href="/portfolio/#porthero"
       ref={btnRef}
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}

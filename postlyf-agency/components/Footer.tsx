@@ -21,7 +21,7 @@ const FOOTER_LINKS = [
         links: [
             { label: "Video Production Agency", href: "/#home" },
             { label: "About PostLfy Studio", href: "/#about" },
-            { label: "Video Production Portfolio", href: "/portfolio" },
+            { label: "Video Production Portfolio", href: "/portfolio/#porthero" },
             { label: "Digital Growth Services", href: "/#services" },
             { label: "Contact Our Team", href: "/#contact" },
         ]
@@ -67,7 +67,7 @@ export default function Footer() {
                     {/* Brand Identity (4 cols) */}
                     <div className="lg:col-span-4 flex flex-col items-start">
                         {/* Tighter margin on logo */}
-                        <Link href="/" className="relative w-36 h-12 mb-6 block">
+                        <Link href="/" className="relative w-36 h-12 mb-6 block scale-[1.35] md:scale-[0.8] origin-left">
                             <Image
                                 src="/logo.svg"
                                 alt="Postlyf Logo"
@@ -187,8 +187,8 @@ export default function Footer() {
                     <div className="flex flex-col md:flex-row items-center gap-6 text-[#555555] text-xs font-medium tracking-wide">
                         <p>© {currentYear} Postlyf Studio. All rights reserved.</p>
                         <div className="flex gap-6">
-                            <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
-                            <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
+                            <Link href="/#hero" className="hover:text-white transition-colors">Privacy Policy</Link>
+                            <Link href="/#hero" className="hover:text-white transition-colors">Terms of Service</Link>
                         </div>
                     </div>
 

@@ -55,12 +55,12 @@ const CATEGORY_DATA: Record<string, { heading: string; italic: string; descripti
     description:
       "Advanced motion graphics, kinetic typography, and visual effects integration for high-impact video production."
   },
-  "Cinematic": {
-    heading: "Cinematic",
-    italic: "Video Production",
-    description:
-      "Premium cinematic video production and advanced color grading designed for emotional storytelling and brand elevation."
-  },
+//   "Cinematic": {
+//     heading: "Cinematic",
+//     italic: "Video Production",
+//     description:
+//       "Premium cinematic video production and advanced color grading designed for emotional storytelling and brand elevation."
+//   },
 };
 
 const CATEGORIES = Object.keys(CATEGORY_DATA);
@@ -83,25 +83,26 @@ const PROJECTS = [
     { id: 12, title: "Hitler Documentry", category: "Documentaries", featured: false, videoId: "1e8HIb0IlJY", description: "3D Documentary on Hitler." },
     { id: 13, title: "Crime related", category: "Documentaries", featured: false, videoId: "LW8ZpVyMV5E", description: "3D Documentary on Crime." },
 
-    { id: 14, title: "BTS", category: "Video Production", featured: false, videoId: "Z-D7eEHkAvk" },
-    { id: 15, title: "BTS 2", category: "Video Production", featured: false, videoId: "Gr7eHduNO0c" },
-    { id: 16, title: "Ghee Reel 1", category: "Video Production", featured: false, videoId: "51WeE778pbA" },
-    { id: 17, title: "GYM Reel", category: "Video Production", featured: false, videoId: "FFpcdNV5zvM" },
-    { id: 18, title: "Ghee Reel 2", category: "Video Production", featured: false, videoId: "l29-DIaSmjk" },
-    { id: 19, title: "Ghee Product Shoot", category: "Video Production", featured: false, videoId: "MLdqvwhI7PY" },
-    { id: 20, title: "UGC Shoot", category: "Video Production", featured: false, videoId: "36-lqgqrXK4" },
-    { id: 21, title: "Cricket Reel", category: "Video Production", featured: false, videoId: "ffFnpkiqxq4" },
-    { id: 22, title: "UGC Shoot 2", category: "Video Production", featured: false, videoId: "z6pBbm6c3r8" },
+    { id: 14, title: "PBF Plant Tour Snapshot", category: "Video Production", featured: false, videoId: "2P44EeyYWNQ", description: "Cinematic Video for PBF." },
+    { id: 15, title: "Cinematic Highlight", category: "Video Production", featured: false, videoId: "7kcwp4iR7uQ", description: "Cinematic Video for Accucia." },
+    { id: 16, title: "Beauty Academy Advertisement", category: "Video Production", featured: false, videoId: "r2NGMUROU0M", description: "Cinematic Video for Classic Beauty." },
+    { id: 17, title: "Interior Design", category: "Video Production", featured: false, videoId: "vjkmaKqPCA0", description: "Cinematic Video on Interior Design." },
+    { id: 18, title: "Route Mapping", category: "Video Production", featured: false, videoId: "HDL7pF5i8tE", description: "Cinematic Route Mapping Video for Sowparnika." },
+    { id: 19, title: "BTS", category: "Video Production", featured: false, videoId: "Z-D7eEHkAvk" },
+    { id: 20, title: "BTS 2", category: "Video Production", featured: false, videoId: "Gr7eHduNO0c" },
+    { id: 21, title: "Ghee Reel 1", category: "Video Production", featured: false, videoId: "51WeE778pbA" },
+    { id: 22, title: "GYM Reel", category: "Video Production", featured: false, videoId: "FFpcdNV5zvM" },
+    { id: 23, title: "Ghee Reel 2", category: "Video Production", featured: false, videoId: "l29-DIaSmjk" },
+    { id: 24, title: "Ghee Product Shoot", category: "Video Production", featured: false, videoId: "MLdqvwhI7PY" },
+    { id: 25, title: "UGC Shoot", category: "Video Production", featured: false, videoId: "36-lqgqrXK4" },
+    { id: 26, title: "Cricket Reel", category: "Video Production", featured: false, videoId: "ffFnpkiqxq4" },
+    { id: 27, title: "UGC Shoot 2", category: "Video Production", featured: false, videoId: "z6pBbm6c3r8" },
+    { id: 28, title: "Film Promo", category: "Video Production", featured: false, videoId: "pId3lPghV90" },
 
-    { id: 16, title: "Ex-Facebook & Uber Heads Reveal 9 SIMPLE HABITS", category: "Podcast Editing", featured: false, videoId: "xwFgddaaBXs", description: "Ex-Facebook & Uber Heads Reveal 9 SIMPLE HABITS to EARN ₹50 Lakh/Year | IBP EP34" },
-    { id: 17, title: "The Dirty Secrets of Underworld-Bollywood & Cricket", category: "Podcast Editing", featured: false, videoId: "K1CCA_cWOB8", description: "ACP Podcast on Avinash Dharmadhikari" },
-    { id: 18, title: "How Happy Teachers can bring a great Change", category: "Podcast Editing", featured: false, videoId: "DRWusoAmipk", description: "English Podcast for Happiness Podcast" },
+    { id: 29, title: "Ex-Facebook & Uber Heads Reveal 9 SIMPLE HABITS", category: "Podcast Editing", featured: false, videoId: "xwFgddaaBXs", description: "Ex-Facebook & Uber Heads Reveal 9 SIMPLE HABITS to EARN ₹50 Lakh/Year | IBP EP34" },
+    { id: 30, title: "The Dirty Secrets of Underworld-Bollywood & Cricket", category: "Podcast Editing", featured: false, videoId: "K1CCA_cWOB8", description: "ACP Podcast on Avinash Dharmadhikari" },
+    { id: 31, title: "How Happy Teachers can bring a great Change", category: "Podcast Editing", featured: false, videoId: "DRWusoAmipk", description: "English Podcast for Happiness Podcast" },
 
-    { id: 19, title: "PBF Plant Tour Snapshot", category: "Cinematic", featured: false, videoId: "2P44EeyYWNQ", description: "Cinematic Video for PBF." },
-    { id: 20, title: "Cinematic Highlight", category: "Cinematic", featured: false, videoId: "7kcwp4iR7uQ", description: "Cinematic Video for Accucia." },
-    { id: 21, title: "Beauty Academy Advertisement", category: "Cinemat ic", featured: false, videoId: "r2NGMUROU0M", description: "Cinematic Video for Classic Beauty." },
-    { id: 22, title: "Interior Design", category: "Cinematic", featured: false, videoId: "vjkmaKqPCA0", description: "Cinematic Video on Interior Design." },
-    { id: 23, title: "Route Mapping", category: "Cinematic", featured: false, videoId: "HDL7pF5i8tE", description: "Cinematic Route Mapping Video for Sowparnika." },
 ];
 
 // --- Private Google Drive Player ---

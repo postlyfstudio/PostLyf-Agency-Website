@@ -130,7 +130,7 @@ const StackCard = ({ index, service, progress, totalCards }: any) => {
           </p>
 
           <button
-            className="w-max px-6 py-3 md:px-8 md:py-4 rounded-full text-black font-semibold text-xs md:text-sm transition-opacity hover:opacity-90 flex items-center gap-3 hover:scale-105 duration-300"
+            className="w-max px-6 py-3 md:px-8 md:py-4 rounded-full text-black font-semibold text-xs md:text-sm transition-opacity hover:opacity-90 flex items-center gap-3 hover:scale-105 transition-all duration-300"
             style={{ backgroundColor: service.color }}
           >
             {service.btnText}

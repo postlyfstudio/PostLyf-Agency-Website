@@ -40,11 +40,11 @@ export default function PortfolioIntro() {
                             className="grid grid-cols-2 gap-8"
                         >
                             <div>
-                                <span className="block text-4xl sm:text-5xl font-light mb-2">150+</span>
+                                <span className="block text-4xl sm:text-5xl font-light mb-2">1000+</span>
                                 <span className="text-[10px] uppercase tracking-[0.15em] text-white/50">Projects Delivered</span>
                             </div>
                             <div>
-                                <span className="block text-4xl sm:text-5xl font-light mb-2">50M+</span>
+                                <span className="block text-4xl sm:text-5xl font-light mb-2">100M+</span>
                                 <span className="text-[10px] uppercase tracking-[0.15em] text-white/50">Views Generated</span>
                             </div>
                         </motion.div>

@@ -53,7 +53,7 @@ export default function Header() {
   // Hook into scroll events to hide/show
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious() ?? 0;
-    
+
     // 3. Hide header ONLY when scrolling DOWN and past the Hero/Work section (approx 800px)
     if (latest > 800 && latest > previous) {
       setHidden(true);
@@ -68,30 +68,30 @@ export default function Header() {
     setIsMobileMenuOpen(false);
   }, [pathname]);
 
-const handleScroll = async (
-  e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
-  hash: string | null,
-  href: string
-) => {
-  if (!hash) return;
+  const handleScroll = async (
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+    hash: string | null,
+    href: string
+  ) => {
+    if (!hash) return;
 
-  e.preventDefault();
+    e.preventDefault();
 
-  if (pathname !== "/") {
-    await router.push("/");
-    setTimeout(() => {
+    if (pathname !== "/") {
+      await router.push("/");
+      setTimeout(() => {
+        const element = document.getElementById(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 100);
+    } else {
       const element = document.getElementById(hash);
       if (element) {
         element.scrollIntoView({ behavior: "smooth", block: "start" });
       }
-    }, 100);
-  } else {
-    const element = document.getElementById(hash);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
-  }
-};
+  };
 
   return (
     <>
@@ -111,7 +111,7 @@ const handleScroll = async (
           <Link
             href="/#hero"
             onClick={(e) => handleScroll(e, "hero", "/#hero")}
-            className="relative w-28 md:w-32 h-10 md:h-12 flex items-center shrink-0"
+            className="relative w-28 md:w-32 h-10 md:h-12 flex items-center shrink-0 scale-[1.35] md:scale-[0.8] origin-left"
           >
             <Image
               src="/logo.svg"
@@ -211,15 +211,23 @@ const handleScroll = async (
                     setIsMobileMenuOpen(false);
                   }}
                   className="inline-flex items-center justify-center w-full py-4 text-lg font-medium text-black bg-white rounded-xl shadow-lg shadow-white/10"
-                > 
+                >
                   Get Quote
                 </Link>
               </motion.div>
             </nav>
 
             <div className="absolute bottom-10 left-8 right-8">
-              <p className="text-white/40 text-sm mb-4 uppercase tracking-[0.2em]">Contact Us</p>
-              <p className="text-white/80 text-xl font-medium">hello@postlyf.com</p>
+              <p className="text-white/40 text-sm mb-4 uppercase tracking-[0.2em]">
+                Contact Us
+              </p>
+
+              <a
+                href="mailto:social@postlyf.com"
+                className="text-white/80 text-xl font-medium hover:text-white transition-colors duration-300"
+              >
+                social@postlyf.com
+              </a>
             </div>
           </motion.div>
         )}

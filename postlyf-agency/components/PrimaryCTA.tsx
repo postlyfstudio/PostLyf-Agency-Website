@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform, useMotionValue, useSpring } from "fram
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 
 const CTALiquidButton = () => {
     const btnRef = useRef<HTMLAnchorElement>(null);
@@ -16,6 +17,8 @@ const CTALiquidButton = () => {
 
     const [isHovered, setIsHovered] = useState(false);
 
+    const pathname = usePathname();
+
     const handleMouseMove = (e: React.MouseEvent) => {
         if (!btnRef.current) return;
         const rect = btnRef.current.getBoundingClientRect();
@@ -23,10 +26,19 @@ const CTALiquidButton = () => {
         fillMouseY.set(e.clientY - rect.top);
     };
 
+    const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+        e.preventDefault();
+        const target = document.getElementById('contact');
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
     return (
         <Link
-            href="/#contact"
+            href="#"
             ref={btnRef}
+            onClick={handleClick}
             onMouseMove={handleMouseMove}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
@@ -147,35 +159,33 @@ export default function PrimaryCTA() {
                     onMouseMove={handleMouseMove}
                     onMouseLeave={handleMouseLeave}
                     style={{ x: mouseX, y: mouseY }}
-                    className="relative"
+                    className="relative group"
                 >
                     {/* Subtle Glow under button */}
                     <div className="absolute -inset-8 bg-white/10 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
-                    {/* 4. Magnetic Button Container */}
-                    <motion.div
-                        onMouseMove={handleMouseMove}
-                        onMouseLeave={handleMouseLeave}
-                        style={{ x: mouseX, y: mouseY }}
-                        className="relative"
+                    <CTALiquidButton />
+
+                    <Link
+                        href="/#contact"
+                        onClick={(e) => {
+                            const target = document.getElementById('contact');
+                            if (target) {
+                                e.preventDefault();
+                                target.scrollIntoView({ behavior: 'smooth' });
+                            }
+                        }}
                     >
-                        {/* Subtle Glow under button */}
-                        <div className="absolute -inset-8 bg-white/10 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-
-                        {/* === STRICT MANDATORY CTA REPLACED HERE === */}
-                        <CTALiquidButton />
-
-                        {/* Magnetic text hint */}
                         <motion.div
                             initial={{ opacity: 0 }}
                             whileInView={{ opacity: 1 }}
                             transition={{ delay: 1 }}
-                            className="absolute -bottom-12 left-1/2 -translate-x-1/2 whitespace-nowrap text-[10px] uppercase tracking-[0.3em] text-[#444444] font-medium"
+                            className="absolute -bottom-12 left-1/2 -translate-x-1/2 whitespace-nowrap text-[10px] uppercase tracking-[0.3em] text-[#444444] font-medium hover:text-white transition-colors duration-300 cursor-pointer"
                         >
                             Click to connect
                         </motion.div>
-                    </motion.div>
-                </motion.div>   
+                    </Link>
+                </motion.div>
 
             </div>
         </section>

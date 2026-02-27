@@ -20,6 +20,7 @@ export default function PortfolioHero() {
 
     return (
         <section
+            id="porthero"
             ref={containerRef}
             className="relative h-screen flex flex-col items-center justify-center overflow-hidden"
         >
@@ -51,7 +52,7 @@ export default function PortfolioHero() {
 
                 <h1 className="text-[12vw] sm:text-[10vw] lg:text-[7vw] font-bold tracking-tighter leading-[0.85] flex flex-wrap justify-center gap-x-[0.2em] mb-8">
                     {titleWords.map((word, i) => (
-                        <span key={i} className="overflow-hidden inline-block py-2">
+                        <span key={i} className="overflow-hidden inline-block py-2 px-[0.03em]">
                             <motion.span
                                 initial={{ y: "100%", opacity: 0 }}
                                 animate={{ y: 0, opacity: 1 }}
@@ -83,21 +84,37 @@ export default function PortfolioHero() {
                     transition={{ delay: 1, duration: 1, ease: [0.16, 1, 0.3, 1] }}
                     className="flex flex-col sm:flex-row items-center gap-6"
                 >
-                    <MagneticButton>
+                    <MagneticButton
+                        onClick={() => {
+                            const el = document.getElementById("contact");
+                            if (!el) return;
+
+                            const offset = 80; // adjust if you have fixed navbar
+                            const y =
+                                el.getBoundingClientRect().top +
+                                window.pageYOffset -
+                                offset;
+
+                            window.scrollTo({
+                                top: y,
+                                behavior: "smooth",
+                            });
+                        }}
+                    >
                         <span className="flex items-center gap-3 px-8 py-4 font-medium uppercase tracking-widest text-sm">
                             Start a Project
                             <svg
-                            className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
+                                className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
                             >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M14 5l7 7m0 0l-7 7m7-7H3"
-                            />
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M14 5l7 7m0 0l-7 7m7-7H3"
+                                />
                             </svg>
                         </span>
                     </MagneticButton>

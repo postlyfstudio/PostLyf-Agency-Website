@@ -25,7 +25,7 @@ const BlogLiquidButton = () => {
 
     return (
         <Link
-            href="/blog"
+            href="/portfolio"
             ref={btnRef}
             aria-label="Explore all journal entries"
             onMouseMove={handleMouseMove}
@@ -51,54 +51,54 @@ const BlogLiquidButton = () => {
 };
 
 const BLOG_POSTS = [
-  {
-    id: "video-production-company-in-pune-2026",
-    category: "Video Production",
-    title: "How a Video Production Company in Pune Drives Real Business Growth",
-    excerpt:
-      "Discover how strategic video production, cinematic storytelling, and performance-driven editing help brands increase engagement, authority, and conversions.",
-    date: "Mar 02, 2026",
-    isoDate: "2026-03-02",
-    readTime: "7 min read",
-    color: "#3b82f6",
-    featured: true,
-  },
-  {
-    id: "how-to-grow-on-youtube-2026",
-    category: "YouTube Strategy",
-    title: "How to Grow on YouTube in 2026: Editing, Retention & Algorithm Strategy",
-    excerpt:
-      "A practical guide to YouTube growth using professional video editing, audience retention tactics, and data-driven content strategy.",
-    date: "Feb 18, 2026",
-    isoDate: "2026-02-18",
-    readTime: "6 min read",
-    color: "#10b981",
-    featured: false,
-  },
-  {
-    id: "high-converting-website-design-tips",
-    category: "Web Development",
-    title: "High-Converting Website Design Tips for Modern Brands",
-    excerpt:
-      "Learn how performance-focused web development and conversion-driven design turn website traffic into measurable business results.",
-    date: "Feb 05, 2026",
-    isoDate: "2026-02-05",
-    readTime: "5 min read",
-    color: "#a855f7",
-    featured: false,
-  },
-  {
-    id: "short-form-video-marketing-strategy",
-    category: "Short Form Video",
-    title: "Short Form Video Marketing Strategy That Increases Engagement & Reach",
-    excerpt:
-      "Explore how short form video editing and social media strategy boost retention, audience growth, and brand visibility across platforms.",
-    date: "Jan 20, 2026",
-    isoDate: "2026-01-20",
-    readTime: "6 min read",
-    color: "#f97316",
-    featured: false,
-  }
+    {
+        id: "video-production-company-in-pune-2026",
+        category: "Video Production",
+        title: "How a Video Production Company in Pune Drives Real Business Growth",
+        excerpt:
+            "Discover how strategic video production, cinematic storytelling, and performance-driven editing help brands increase engagement, authority, and conversions.",
+        date: "Mar 02, 2026",
+        isoDate: "2026-03-02",
+        readTime: "7 min read",
+        color: "#3b82f6",
+        featured: true,
+    },
+    {
+        id: "how-to-grow-on-youtube-2026",
+        category: "YouTube Strategy",
+        title: "How to Grow on YouTube in 2026: Editing, Retention & Algorithm Strategy",
+        excerpt:
+            "A practical guide to YouTube growth using professional video editing, audience retention tactics, and data-driven content strategy.",
+        date: "Feb 18, 2026",
+        isoDate: "2026-02-18",
+        readTime: "6 min read",
+        color: "#10b981",
+        featured: false,
+    },
+    {
+        id: "high-converting-website-design-tips",
+        category: "Web Development",
+        title: "High-Converting Website Design Tips for Modern Brands",
+        excerpt:
+            "Learn how performance-focused web development and conversion-driven design turn website traffic into measurable business results.",
+        date: "Feb 05, 2026",
+        isoDate: "2026-02-05",
+        readTime: "5 min read",
+        color: "#a855f7",
+        featured: false,
+    },
+    {
+        id: "short-form-video-marketing-strategy",
+        category: "Short Form Video",
+        title: "Short Form Video Marketing Strategy That Increases Engagement & Reach",
+        excerpt:
+            "Explore how short form video editing and social media strategy boost retention, audience growth, and brand visibility across platforms.",
+        date: "Jan 20, 2026",
+        isoDate: "2026-01-20",
+        readTime: "6 min read",
+        color: "#f97316",
+        featured: false,
+    }
 ];
 
 // --- Animation Variants ---
@@ -231,7 +231,7 @@ export default function Blog() {
                         <TiltCard color={featuredPost.color}>
                             <article className="h-full">
                                 <Link
-                                    href={`/blog/${featuredPost.id}`}
+                                    href="/#hero"
                                     aria-label={`Read featured post: ${featuredPost.title}`}
                                     className="group block h-full focus:outline-none rounded-[2.5rem] focus:ring-2 focus:ring-blue-500"
                                 >
@@ -283,7 +283,14 @@ export default function Blog() {
                             >
                                 <article>
                                     <Link
-                                        href={`/blog/${post.id}`}
+                                        href="/#hero"
+                                        onClick={(e) => {
+                                            if (window.location.pathname === "/") {
+                                                e.preventDefault();
+                                                const el = document.getElementById("hero");
+                                                el?.scrollIntoView({ behavior: "smooth" });
+                                            }
+                                        }}
                                         aria-label={`Read post: ${post.title}`}
                                         className="block focus:outline-none rounded-[1.5rem] focus:ring-2 focus:ring-blue-500"
                                     >

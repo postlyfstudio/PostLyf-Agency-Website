@@ -13,6 +13,7 @@ declare global {
   }
 }
 
+
 const PROJECTS = [
   { id: 1, title: "Nike Documentary", type: "Documentaries", thumb: "from-blue-600/50", color: "#3B82F6", videoId: "fZikgOgH_oc" },
   { id: 2, title: "Meteomind Launch Video", type: "Motion Graphics", thumb: "from-rose-600/50", color: "#F43F5E", videoId: "Hg39xlCCjXQ" },
@@ -238,7 +239,7 @@ const PortfolioEndLiquidButton = () => {
 
   return (
     <button
-      onClick={() => router.push("/portfolio")}
+      onClick={() => router.push("/portfolio/#porthero")}
       ref={btnRef}
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}

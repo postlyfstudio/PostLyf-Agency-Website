@@ -4,8 +4,8 @@ import { motion, useInView, useAnimation } from "framer-motion";
 import { useEffect, useRef } from "react";
 
 const METRICS = [
-  { value: 150, suffix: "+", label: "Video Projects Delivered" },
-  { value: 50, suffix: "M+", label: "Organic Views Generated" },
+  { value: 1000, suffix: "+", label: "Video Projects Delivered" },
+  { value: 100, suffix: "M+", label: "Organic Views Generated" },
   { value: 85, suffix: "%", label: "Average Viewer Retention" },
   { value: 100, suffix: "%", label: "Client Satisfaction Rate" },
 ];
