@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "../components/Header";
 import SmoothScroll from "../components/SmoothScroll";
-import { Analytics } from "@vercel/analytics/react";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata = {
   title: "Video Production & Digital Agency in Pune | PostLyf",
@@ -17,6 +17,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta name="google-site-verification" content="SJTMkWcWW-S46aXZLaaOEVF6OWqTcgdkqnidHHBG4Bc" />
+      </head>
       <body className="antialiased bg-[#050505] text-white overflow-x-hidden">
         <script
           type="application/ld+json"
@@ -57,8 +60,6 @@ export default function RootLayout({
         {/* Vercel Analytics */}
         <Analytics />
       </body>
-
-      <meta name="google-site-verification" content="SJTMkWcWW-S46aXZLaaOEVF6OWqTcgdkqnidHHBG4Bc" />
     </html>
   );
 }
