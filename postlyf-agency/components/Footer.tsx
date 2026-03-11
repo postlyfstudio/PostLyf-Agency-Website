@@ -20,7 +20,7 @@ const FOOTER_LINKS = [
         title: "Menu",
         links: [
             { label: "Video Production Agency", href: "/#home" },
-            { label: "About PostLfy Studio", href: "/#about" },
+            { label: "About PostLyf Studio", href: "/#about" },
             { label: "Video Production Portfolio", href: "/portfolio/#porthero" },
             { label: "Digital Growth Services", href: "/#services" },
             { label: "Contact Our Team", href: "/#contact" },
@@ -77,7 +77,7 @@ export default function Footer() {
                         </Link>
 
                         <p className="text-[#a0a0a0] text-base md:text-sm leading-relaxed max-w-sm mb-6">
-                            PostLfy Studio is a video production agency in Pune specializing in cinematic video production, professional video editing, web development, and social media marketing for modern brands.
+                            PostLyf Studio is a video production agency in Pune specializing in cinematic video production, professional video editing, web development, and social media marketing for modern brands.
                         </p>
 
                         <div className="flex gap-4 mb-8">
