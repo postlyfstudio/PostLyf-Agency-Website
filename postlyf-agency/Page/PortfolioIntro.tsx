@@ -60,7 +60,7 @@ export default function PortfolioIntro() {
                             className="text-lg sm:text-xl text-white/60 font-light leading-relaxed flex flex-col gap-6"
                         >
                             <p>
-                                PostLfy Studio is a video production agency in Pune delivering cinematic storytelling, professional video editing, and corporate video production for brands and creators worldwide.
+                                PostLyf Studio is a video production agency in Pune delivering cinematic storytelling, professional video editing, and corporate video production for brands and creators worldwide.
                             </p>
 
                             <p>
