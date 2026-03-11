@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import SmoothScroll from "../components/SmoothScroll";
 
 export const metadata = {
-  title: "Video Production & Digital Agency in Pune | PostLfy",
+  title: "Video Production & Digital Agency in Pune | PostLyf",
   description:
     "Premium video production, web development, and social media marketing agency in Pune helping brands build high-performance digital growth systems.",
 };
@@ -23,7 +23,7 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "LocalBusiness",
-              name: "PostLfy Studio",
+              name: "PostLyf Studio",
               url: "https://postlyf.com/",
               logo: "https://postlyf.com/logo.png",
               telephone: "+91-9226719090",
