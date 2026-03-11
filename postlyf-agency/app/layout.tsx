@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "../components/Header";
 import SmoothScroll from "../components/SmoothScroll";
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata = {
   title: "Video Production & Digital Agency in Pune | PostLyf",
@@ -52,6 +53,9 @@ export default function RootLayout({
           <Header />
           {children}
         </SmoothScroll>
+        
+        {/* Vercel Analytics */}
+        <Analytics />
       </body>
 
       <meta name="google-site-verification" content="SJTMkWcWW-S46aXZLaaOEVF6OWqTcgdkqnidHHBG4Bc" />
